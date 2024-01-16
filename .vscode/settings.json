@@ -1,0 +1,16 @@
+{
+    "cmake.automaticReconfigure": true,
+    "cmake.configureSettings": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": true,
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CROSSCOMPILING": true,
+        "CMAKE_SYSTEM_NAME": "Generic",
+        "CMAKE_SYSTEM_PROCESSOR": "rv32imafc_xtheade",
+        "CMAKE_SYSROOT": "/Users/nimish/Projects/xuantie-gnu-toolchain/opt/riscv-xuantie/riscv32-unknown-elf",
+        "CMAKE_FIND_ROOT_PATH": "/Users/nimish/Projects/xuantie-gnu-toolchain/opt/riscv-xuantie"
+    },
+    "cmake.showSystemKits": false,
+    "cmake.additionalCompilerSearchDirs": [
+        "/Users/nimish/Projects/xuantie-gnu-toolchain/opt/riscv-xuantie/bin"
+    ],
+}

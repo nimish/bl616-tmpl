@@ -1,0 +1,26 @@
+{
+    "version": 7,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 28,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+          "name": "default",
+          "displayName": "Default Config",
+          "description": "Default build using Ninja generator",
+          "generator": "Ninja",
+          "binaryDir": "${sourceDir}/build",
+          "toolchainFile": "rv32imafc_xtheade-toolchain.cmake",
+          "cacheVariables": {
+            "CMAKE_CROSSCOMPILING": true,
+            "CMAKE_SYSTEM_NAME": "Generic",
+            "CMAKE_MAKE_PROGRAM": "ninja",
+          },
+          // "debug": {
+          //   "output": true,
+          // },
+        },
+      ],
+}
