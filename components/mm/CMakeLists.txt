@@ -1,0 +1,7 @@
+add_library(mem STATIC mem.c tlsf/tlsf.c tlsf/bflb_tlsf.c)
+target_include_directories(mem PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/tlsf})
+target_compile_definitions(mem PUBLIC CONFIG_TLSF)
+target_link_libraries(mem PUBLIC lhal)
+if(CONFIG_FREERTOS)
+target_compile_definitions(mem PUBLIC configSTACK_ALLOCATION_FROM_SEPARATE_HEAP=1)
+endif()

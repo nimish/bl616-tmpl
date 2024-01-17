@@ -3527,17 +3527,16 @@ __STATIC_FORCEINLINE void csi_park_q31(
     q31_t cosVal)
 {
 #ifdef CSI_SIMD
-  asm volatile(
-                "rmul.s32.h t0, %0, %3\n\t"
-                "rmul.s32.h t1, %1, %2\n\t"
-                "add.s32.s  t0, t0, t1\n\t"
-                "st.w       t0, (%4, 0x0)\n\t"
-                "rmul.s32.h t0, %0, %2\n\t"
-                "rmul.s32.h t1, %1, %3\n\t"
-                "sub.s32.s  t1, t1, t0\n\t"
-                "st.w       t1, (%5, 0x0)\n\t"
-                ::"r"(Ialpha),"r"(Ibeta),"r"(sinVal),"r"(cosVal),"r"(pId),"r"(pIq)
-                :"t0","t1", "memory");
+  __asm__ volatile("rmul.s32.h t0, %0, %3\n\t"
+                   "rmul.s32.h t1, %1, %2\n\t"
+                   "add.s32.s  t0, t0, t1\n\t"
+                   "st.w       t0, (%4, 0x0)\n\t"
+                   "rmul.s32.h t0, %0, %2\n\t"
+                   "rmul.s32.h t1, %1, %3\n\t"
+                   "sub.s32.s  t1, t1, t0\n\t"
+                   "st.w       t1, (%5, 0x0)\n\t" ::"r"(Ialpha),
+                   "r"(Ibeta), "r"(sinVal), "r"(cosVal), "r"(pId), "r"(pIq)
+                   : "t0", "t1", "memory");
 #else
     q31_t product1, product2;                    /* Temporary variables used to store intermediate results */
     q31_t product3, product4;                    /* Temporary variables used to store intermediate results */
@@ -3636,17 +3635,16 @@ __STATIC_FORCEINLINE void csi_inv_park_q31(
     q31_t cosVal)
 {
 #ifdef CSI_SIMD
-  asm volatile(
-                "rmul.s32.h t0, %0, %3\n\t"
-                "rmul.s32.h t1, %1, %2\n\t"
-                "sub.s32.s  t0, t0, t1\n\t"
-                "st.w       t0, (%4, 0x0)\n\t"
-                "rmul.s32.h t0, %0, %2\n\t"
-                "rmul.s32.h t1, %1, %3\n\t"
-                "add.s32.s  t0, t0, t1\n\t"
-                "st.w       t0, (%5, 0x0)\n\t"
-                ::"r"(Id),"r"(Iq),"r"(sinVal),"r"(cosVal),"r"(pIalpha),"r"(pIbeta)
-                :"t0","t1", "memory");
+  __asm__ volatile("rmul.s32.h t0, %0, %3\n\t"
+                   "rmul.s32.h t1, %1, %2\n\t"
+                   "sub.s32.s  t0, t0, t1\n\t"
+                   "st.w       t0, (%4, 0x0)\n\t"
+                   "rmul.s32.h t0, %0, %2\n\t"
+                   "rmul.s32.h t1, %1, %3\n\t"
+                   "add.s32.s  t0, t0, t1\n\t"
+                   "st.w       t0, (%5, 0x0)\n\t" ::"r"(Id),
+                   "r"(Iq), "r"(sinVal), "r"(cosVal), "r"(pIalpha), "r"(pIbeta)
+                   : "t0", "t1", "memory");
 #else
     q31_t product1, product2;                    /* Temporary variables used to store intermediate results */
     q31_t product3, product4;                    /* Temporary variables used to store intermediate results */
@@ -4038,7 +4036,7 @@ csi_status csi_sqrt_q15(
                    - \ref CSI_MATH_SUCCESS        : input value is positive
                    - \ref CSI_MATH_ARGUMENT_ERROR : input value is negative; *pOut is set to 0
  */
-#ifdef __riscv 
+#ifdef __riscv
 __STATIC_FORCEINLINE csi_status csi_sqrt_f32(
     float32_t in,
     float32_t * pOut)

@@ -1,21 +1,20 @@
-sdk_add_include_directories(.)
+add_library(bl616dk STATIC
+    board.c
+    fw_header.c
+    board_rf.c
+    )
 
-target_sources(app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/board.c)
-target_sources(app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/fw_header.c)
 
-if(CONFIG_RF)
-target_sources(app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/board_rf.c)
-endif()
+target_link_libraries(bl616dk
+PUBLIC
+    phyrf
+    soc
+    rfparam
+    lhal
+    mem
+)
 
-sdk_set_linker_script(bl616_flash.ld)
+target_link_options(bl616dk PUBLIC fw_header)
 
-if(CONFIG_PSRAM)
-sdk_add_compile_definitions(-DCONFIG_PSRAM)
-endif()
-if(CONFIG_CONSOLE_WO)
-sdk_add_compile_definitions(-DCONFIG_CONSOLE_WO)
-endif()
 
-sdk_add_compile_definitions_ifdef(CONFIG_PSRAM_COPY_CODE -DCONFIG_PSRAM_COPY_CODE)
-
-sdk_add_link_options(-ufw_header)
+# set_property(TARGET bl616dk PROPERTY INTERFACE_LINK_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/bl616_flash.ld)

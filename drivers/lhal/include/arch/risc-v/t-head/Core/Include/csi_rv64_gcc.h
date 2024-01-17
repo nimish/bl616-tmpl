@@ -15,7 +15,7 @@
 #include <stdlib.h>
 
 #ifndef __ASM
-#define __ASM __asm /*!< asm keyword for GNU Compiler */
+#define __ASM __asm__ /*!< __asm__ keyword for GNU Compiler */
 #endif
 
 #ifndef __INLINE

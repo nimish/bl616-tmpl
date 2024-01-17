@@ -2,7 +2,7 @@
 #define __COMPILER_GCC_H
 
 #ifndef __ASM
-#define __ASM __asm
+#define __ASM __asm__
 #endif
 #ifndef __INLINE
 #define __INLINE inline

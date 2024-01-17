@@ -1,7 +1,6 @@
-sdk_add_include_directories(inc)
-
-sdk_add_static_library(lib/libphyrf.a)
-
-sdk_add_compile_definitions(-DWL_WB03=0)
-sdk_add_compile_definitions(-DWL_BL616=1)
-sdk_add_compile_definitions(-DWL_BL618M=0)
+add_library(phyrf STATIC IMPORTED GLOBAL)
+set_target_properties(phyrf PROPERTIES
+    IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/lib/libphyrf.a
+    INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/inc
+    INTERFACE_COMPILE_DEFINITIONS WL_WB03=0 WL_BL616=1 WL_BL618M=0
+)
