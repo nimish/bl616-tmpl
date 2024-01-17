@@ -14,8 +14,8 @@ int USB_disk_initialize(void)
 {
     active_msc_class = (struct usbh_msc *)usbh_find_class_instance("/dev/sda");
     if (active_msc_class == NULL) {
-        printf("do not find /dev/sda\r\n");
-        return RES_NOTRDY;
+      printf("could not find /dev/sda\r\n");
+      return RES_NOTRDY;
     }
     return RES_OK;
 }

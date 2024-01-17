@@ -48,24 +48,9 @@ target_include_directories(soc PUBLIC
 
 target_link_libraries(soc PUBLIC lhal)
 
-SET(MCPU "e907")
-SET(MARCH "rv32imafc_xtheade")
-SET(MABI "ilp32f")
 
 target_compile_definitions(soc PUBLIC
     ARCH_RISCV
     BFLB_USE_HAL_DRIVER
     CONFIG_IRQ_NUM=80
     )
-target_compile_options(soc PUBLIC
-    -march=${MARCH}
-    -mabi=${MABI}
-    -mtune=${MCPU}
-)
-
-target_link_options(soc PUBLIC
-    -march=${MARCH}
-    -mabi=${MABI}
-    -mtune=${MCPU}
-)
-

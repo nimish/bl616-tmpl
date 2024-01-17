@@ -1,5 +1,6 @@
 set(CMAKE_SYSTEM_NAME Generic-ELF)
 set(CMAKE_SYSTEM_PROCESSOR "rv32imafc_xtheade")
+
 set(CMAKE_COLOR_DIAGNOSTICS ON)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -25,22 +26,20 @@ find_program(CMAKE_CXX_COMPILER NAMES ${CROSS_COMPILE}g++)
 find_program(CMAKE_OBJCOPY NAMES ${CROSS_COMPILE}objcopy)
 find_program(CMAKE_OBJDUMP NAMES ${CROSS_COMPILE}objdump)
 
-SET(MARCH "rv32imafc_xtheade")
-SET(MCPU "e907")
+
+SET(MARCH "rv32imaf_xtheadcmo_xtheadba_xtheadbb_xtheadbs_xtheadmac_xtheadmemidx")
 SET(MABI "ilp32f")
 
-add_compile_definitions(XTHEAD_PREFIX=" ")
+add_compile_definitions(XTHEAD_PREFIX="th.")
 
 add_compile_options(
-    # --target=riscv32-unknown-elf
+    --target=riscv32-unknown-elf
     -march=${MARCH}
     -mabi=${MABI}
-    -mtune=${MCPU}
-
 )
 add_link_options(
-    # --target=riscv32-unknown-elf
+    --target=riscv32-unknown-elf
     -march=${MARCH}
     -mabi=${MABI}
-    -mtune=${MCPU}
 )
+
