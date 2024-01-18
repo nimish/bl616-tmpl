@@ -512,8 +512,9 @@ static inline void *__bflb_dbg_pointer(
     const char *expr_p,
     void *value_p)
 {
-    __BFLB_DBG_INFO_OUTPUT(tag_p, file_p, func_p, line, __BFLB_DBG_FORMAT("%08x"), expr_p, value_p);
-    return (value_p);
+  __BFLB_DBG_INFO_OUTPUT(tag_p, file_p, func_p, line, __BFLB_DBG_FORMAT("%p"),
+                         expr_p, value_p);
+  return (value_p);
 }
 
 static inline void __bflb_dbg_print_ascii(

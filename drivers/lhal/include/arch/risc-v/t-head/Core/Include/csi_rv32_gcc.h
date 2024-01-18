@@ -62,7 +62,7 @@ __ALWAYS_STATIC_INLINE void __disable_irq(void) {
 __ALWAYS_STATIC_INLINE uint32_t __get_MXSTATUS(void) {
   uint32_t result;
 
-  __ASM volatile("csrr %0, mxstatus" : "=r"(result));
+  __ASM volatile("csrr %0, 0x7c0" : "=r"(result));
   return (result);
 }
 
@@ -72,7 +72,7 @@ __ALWAYS_STATIC_INLINE uint32_t __get_MXSTATUS(void) {
   \param [in]    MXSTATUS Register value to set
  */
 __ALWAYS_STATIC_INLINE void __set_MXSTATUS(uint32_t mxstatus) {
-  __ASM volatile("csrw mxstatus, %0" : : "r"(mxstatus));
+  __ASM volatile("csrw 0x7c0, %0" : : "r"(mxstatus));
 }
 
 /**
@@ -83,7 +83,7 @@ __ALWAYS_STATIC_INLINE void __set_MXSTATUS(uint32_t mxstatus) {
 __ALWAYS_STATIC_INLINE uint32_t __get_MEXSTATUS(void) {
   uint32_t result;
 
-  __ASM volatile("csrr %0, mexstatus" : "=r"(result));
+  __ASM volatile("csrr %0, 0x7e1" : "=r"(result));
   return (result);
 }
 
@@ -93,7 +93,7 @@ __ALWAYS_STATIC_INLINE uint32_t __get_MEXSTATUS(void) {
   \param [in]    MEXSTATUS Register value to set
  */
 __ALWAYS_STATIC_INLINE void __set_MEXSTATUS(uint32_t mexstatus) {
-  __ASM volatile("csrw mexstatus, %0" : : "r"(mexstatus));
+  __ASM volatile("csrw 0x7e1, %0" : : "r"(mexstatus));
 }
 
 /**
@@ -158,7 +158,7 @@ __ALWAYS_STATIC_INLINE void __set_MSTATUS(uint32_t mstatus) {
 __ALWAYS_STATIC_INLINE uint32_t __get_MHCR(void) {
   uint32_t result;
 
-  __ASM volatile("csrr %0, mhcr" : "=r"(result));
+  __ASM volatile("csrr %0, 0x7c1" : "=r"(result));
   return (result);
 }
 
@@ -168,7 +168,7 @@ __ALWAYS_STATIC_INLINE uint32_t __get_MHCR(void) {
   \param [in]           MHCR Register value to set
  */
 __ALWAYS_STATIC_INLINE void __set_MHCR(uint32_t mhcr) {
-  __ASM volatile("csrw mhcr, %0" : : "r"(mhcr));
+  __ASM volatile("csrw 0x7c1, %0" : : "r"(mhcr));
 }
 
 /**

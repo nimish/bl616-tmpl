@@ -1,5 +1,5 @@
 {
-    "version": 7,
+    "version": 8,
     "cmakeMinimumRequired": {
         "major": 3,
         "minor": 28,
@@ -12,10 +12,10 @@
           "description": "Default build using Ninja generator",
           "generator": "Ninja",
           "binaryDir": "${sourceDir}/build",
-          "toolchainFile": "rv32imafc_xtheade-toolchain.cmake",
+          "toolchainFile": "cmake/rv32imafc_xtheade-toolchain.cmake",
           "cacheVariables": {
             "CMAKE_CROSSCOMPILING": true,
-            "CMAKE_SYSTEM_NAME": "Generic",
+            "CMAKE_SYSTEM_NAME": "Generic-ELF",
             "CMAKE_MAKE_PROGRAM": "ninja",
           },
           // "debug": {

@@ -36,7 +36,7 @@ void rfparam_array_printf(char* str, void * buf, uint32_t buf_len, int type)
     uint16_t *c=NULL;
     int16_t *d=NULL;
 
-    rfparam_printf("%s[%ld]: ", str, buf_len);
+    rfparam_printf("%s[%d]: ", str, buf_len);
 
     switch (type) {
     case TYPE_UINT8:

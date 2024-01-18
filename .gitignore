@@ -1,6 +1,6 @@
 # Created by https://www.toptal.com/developers/gitignore/api/c,c++,clion,visualstudiocode,cmake,macos
-build/*
 .cache/
+build/
 
 ### macOS ###
 # General
@@ -70,6 +70,8 @@ Temporary Items
 
 # Executables
 *.exe
+!bflb_*.exe
+
 *.out
 *.app
 *.i*86
