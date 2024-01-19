@@ -33,7 +33,7 @@ add_library(lhal STATIC
     src/bflb_auadc.c
     src/bflb_platform_dma.c
     src/bflb_wo.c
-    # src/bflb_usb_v2.c
+    src/bflb_usb_v2.c
     src/bflb_irq.c
     src/bflb_l1c.c
     src/bflb_mtimer.c
@@ -66,5 +66,6 @@ target_compile_definitions(lhal PRIVATE CONFIG_FLASH_2LINE_ENABLE)
 target_link_libraries(lhal PUBLIC
     soc
     phyrf
+    cherryusb
 
     )

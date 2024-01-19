@@ -2,7 +2,7 @@
 # add_subdirectory(crypto)
 # add_subdirectory(fs)
 # add_subdirectory(graphics)
-# add_subdirectory(libc)
+add_subdirectory(libc)
 # add_subdirectory(lzma)
 add_subdirectory(mm)
 # add_subdirectory(net)

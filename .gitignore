@@ -71,6 +71,7 @@ Temporary Items
 # Executables
 *.exe
 !bflb_*.exe
+!BLFlash*
 
 *.out
 *.app

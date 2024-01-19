@@ -7,20 +7,25 @@
     },
     "configurePresets": [
         {
-          "name": "default",
-          "displayName": "Default Config",
-          "description": "Default build using Ninja generator",
-          "generator": "Ninja",
-          "binaryDir": "${sourceDir}/build",
-          "toolchainFile": "cmake/rv32imafc_xtheade-toolchain.cmake",
-          "cacheVariables": {
-            "CMAKE_CROSSCOMPILING": true,
-            "CMAKE_SYSTEM_NAME": "Generic-ELF",
-            "CMAKE_MAKE_PROGRAM": "ninja",
-          },
-          // "debug": {
-          //   "output": true,
-          // },
+            "name": "default",
+            "displayName": "Default Config",
+            "description": "Default build using Ninja generator",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build",
+            "toolchainFile": "cmake/rv32imafc_xtheade-toolchain.cmake",
+            "cacheVariables": {
+                "CMAKE_CROSSCOMPILING": true,
+                "CMAKE_SYSTEM_NAME": "Generic-ELF",
+                "CMAKE_MAKE_PROGRAM": "ninja"
+            }
         },
-      ],
+        {
+            "name": "app",
+            "description": "app",
+            "displayName": "app",
+            "inherits": [
+                "default"
+            ]
+        }
+    ]
 }

@@ -5,13 +5,15 @@ target_include_directories(cherryusb PUBLIC
     core
 )
 
+target_sources(cherryusb PRIVATE port/ehci/usb_hc_ehci.c)
+target_include_directories(cherryusb PUBLIC port/ehci)
+
 target_compile_definitions(cherryusb PUBLIC CONFIG_CHERRYUSB)
 # target_sources(cherryusb PRIVATE core/usbd_core.c)
 target_compile_definitions(cherryusb PUBLIC CONFIG_USB_ALIGN_SIZE=32 CONFIG_USB_HS)
 
-
-
-
+target_sources(cherryusb PRIVATE class/hub/usbh_hub.c)
+target_include_directories(cherryusb PUBLIC class/hub)
 
 if(CONFIG_CHERRYUSB_DEVICE_CDC)
     target_include_directories(cherryusb PUBLIC class/cdc)
