@@ -8,8 +8,7 @@ set(BOARD bl616dk)
 set(BL_SDK_BASE ${CMAKE_CURRENT_SOURCE_DIR})
 
 
-project(bl616_tmpl C)
-
+project(bl616_tmpl C ASM)
 set(BIN_FILE ${CMAKE_CURRENT_BINARY_DIR}/app/app.bin)
 set(ASM_FILE ${CMAKE_CURRENT_BINARY_DIR}/app/app.asm)
 
@@ -26,7 +25,7 @@ add_subdirectory(app)
 
 set(BL_FW_POST_PROC ${CMAKE_CURRENT_SOURCE_DIR}/tools/bflb_tools/bflb_fw_post_proc/bflb_fw_post_proc-macos)
 
-
+set(MAP_FILE ${CMAKE_PROJECT_NAME}.map)
 message(STATUS "BL_FW_POST_PROC: ${BL_FW_POST_PROC}")
 add_custom_command(
         OUTPUT ${BIN_FILE}

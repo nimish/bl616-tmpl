@@ -7,6 +7,7 @@
 #define USB_OSAL_H
 
 #include <stdint.h>
+#include <stdlib.h>
 #include <string.h>
 
 typedef void *usb_osal_thread_t;

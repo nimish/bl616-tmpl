@@ -65,8 +65,8 @@ static char *g_saveptr = NULL;
  *    if there are no more tokens.
  *
  ****************************************************************************/
+char *strtok_r(char *str, const char *delim, char **saveptr);
 
-char *strtok(char *str, const char *delim)
-{
-  return strtok_r(str, delim, &g_saveptr);
+char *strtok(char *str, const char *delim) {
+  return (char *)strtok_r(str, delim, &g_saveptr);
 }

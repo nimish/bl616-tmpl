@@ -1,7 +1,8 @@
 #include "bl616_pm.h"
 #include "bflb_flash.h"
-#include "bl616_clock.h"
 #include "bflb_rtc.h"
+#include "bl616_clock.h"
+#include "bl616_common.h"
 #include "bl616_glb.h"
 #include "bl616_hbn.h"
 #include "bl616_pds.h"
@@ -537,7 +538,7 @@ BL_Err_Type pm_pds_wakeup_src_en(uint32_t WakeupType)
 BL_Sts_Type pm_pds_get_wakeup_src(uint32_t WakeupType)
 {
     if ((WakeupType < PDS_WAKEUP_BY_PDS_TIMER_EN_POS) || (WakeupType > PDS_WAKEUP_BY_WIFI_TBTT_IRQ_EN_POS)) {
-        return INVALID;
+      return (BL_Sts_Type)INVALID;
     }
 
     uint32_t tmpVal = 0;

@@ -10,8 +10,8 @@ set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
-set(CROSS_COMPILE "riscv32-unknown-elf-")
-set(RISCV_XUANTIE_PATH /Users/nimish/Projects/xuantie-gnu-toolchain/opt/riscv-xuantie)
+set(CROSS_COMPILE "riscv64-unknown-elf-")
+set(RISCV_XUANTIE_PATH /opt/homebrew/bin )#/Users/nimish/Projects/xuantie-gnu-toolchain/opt/riscv-xuantie)
 
 set(CMAKE_SYSROOT ${RISCV_XUANTIE_PATH}/riscv32-unknown-elf)
 set(CMAKE_FIND_ROOT_PATH ${RISCV_XUANTIE_PATH})
@@ -25,20 +25,30 @@ find_program(CMAKE_CXX_COMPILER NAMES ${CROSS_COMPILE}g++)
 find_program(CMAKE_OBJCOPY NAMES ${CROSS_COMPILE}objcopy)
 find_program(CMAKE_OBJDUMP NAMES ${CROSS_COMPILE}objdump)
 
-SET(MARCH "rv32imafc_xtheade")
-SET(MCPU "e907")
+SET(MARCH "rv32imafc_zifencei_xtheadcmo_xtheadba_xtheadbb_xtheadbs_xtheadmac_xtheadmemidx")
+# SET(MCPU "e907")
 SET(MABI "ilp32f")
 
-add_compile_definitions(XTHEAD_PREFIX=" ")
-
+add_compile_definitions(XTHEAD_PREFIX="th.")
 add_compile_options(
     -march=${MARCH}
     -mabi=${MABI}
-    -mtune=${MCPU}
+    -Os
+    -Wall
+    -ffunction-sections
+    -fdata-sections
+
+    # -mtune=${MCPU}
 
 )
 add_link_options(
     -march=${MARCH}
     -mabi=${MABI}
-    -mtune=${MCPU}
+    -Xlinker -Map=${CMAKE_PROJECT_NAME}.map
+    -Wl,--print-memory-usage
+    # -mtune=${MCPU}
+)
+set(CMAKE_LINK_LIBRARY_USING_WHOLE_ARCHIVE_SUPPORTED True)
+set(CMAKE_LINK_LIBRARY_USING_WHOLE_ARCHIVE
+"-Wl,--whole-archive" "<LINK_ITEM>" "-Wl,--no-whole-archive"
 )

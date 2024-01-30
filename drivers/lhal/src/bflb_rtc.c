@@ -1,5 +1,6 @@
 #include "bflb_rtc.h"
 #include "hardware/rtc_reg.h"
+#include <time.h>
 
 #if defined(BL602) || defined(BL702) || defined(BL702L)
 #define BFLB_RTC_BASE 0x4000F000

@@ -97,31 +97,31 @@ int printf(const char *fmt, ...)
 }
 #endif
 
-#define __is_print(ch) ((unsigned int)((ch) - ' ') < 127u - ' ')
 void bflb_hexdump(const void *ptr, uint32_t buflen)
 {
-    unsigned char *buf = (unsigned char *)ptr;
-    int i, j;
+#define bflb_hexdump__is_print(ch) ((unsigned int)((ch) - ' ') < 127u - ' ')
+  unsigned char *buf = (unsigned char *)ptr;
+  int i, j;
 
-    for (i = 0; i < buflen; i += 16) {
-        printf("%08X:", i);
+  for (i = 0; i < buflen; i += 16) {
+    printf("%08X:", i);
 
-        for (j = 0; j < 16; j++)
-            if (i + j < buflen) {
-                if ((j % 8) == 0) {
-                    printf("  ");
-                }
+    for (j = 0; j < 16; j++)
+      if (i + j < buflen) {
+        if ((j % 8) == 0) {
+          printf("  ");
+        }
 
-                printf("%02X ", buf[i + j]);
-            } else
-                printf("   ");
-        printf(" ");
+        printf("%02X ", buf[i + j]);
+      } else
+        printf("   ");
+    printf(" ");
 
-        for (j = 0; j < 16; j++)
-            if (i + j < buflen)
-                printf("%c", __is_print(buf[i + j]) ? buf[i + j] : '.');
-        printf("\n");
-    }
+    for (j = 0; j < 16; j++)
+      if (i + j < buflen)
+        printf("%c", bflb_hexdump__is_print(buf[i + j]) ? buf[i + j] : '.');
+    printf("\n");
+  }
 }
 
 void bflb_dump(uint8_t *data, uint32_t len)
@@ -139,9 +139,8 @@ void bflb_dump(uint8_t *data, uint32_t len)
     printf("\r\n");
 }
 
-void bflb_regdump(uint32_t addr)
-{
-    printf("%08lx[31:0]=%08lx\r\n", addr, *(volatile uint32_t *)(addr));
+void bflb_regdump(volatile uint32_t *addr) {
+  printf("%p[31:0]=%08x\r\n", addr, *addr);
 }
 
 #ifdef CONFIG_CONSOLE_WO

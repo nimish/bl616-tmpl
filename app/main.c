@@ -1,11 +1,11 @@
-#include <stdint.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "cdc_acm_template.h"
 
-#include "usbh_core.h"
 #include "bflb_mtimer.h"
 #include "board.h"
 

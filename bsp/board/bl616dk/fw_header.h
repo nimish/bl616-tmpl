@@ -1,8 +1,8 @@
 #ifndef __FW_HEADER_H__
 #define __FW_HEADER_H__
 
-#include "stdint.h"
-#include "stdio.h"
+#include <stdint.h>
+#include <stdio.h>
 
 struct __attribute__((packed, aligned(4))) spi_flash_cfg_t {
     uint8_t ioMode;               /*!< Serail flash interface mode,bit0-3:IF mode,bit4:unwrap */

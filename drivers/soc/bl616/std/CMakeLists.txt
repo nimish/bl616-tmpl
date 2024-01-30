@@ -18,13 +18,13 @@ add_library(soc STATIC
 )
 
 
-# if(CONFIG_ROMAPI)
-#     target_compile_definitions(soc PUBLIC BFLB_USE_ROM_DRIVER)
-#     target_sources(soc PRIVATE
-#         src/bl616_romapi_e907.c
-#         src/bl616_romapi_patch.c
-#     )
-# else()
+if(1)
+    target_compile_definitions(soc PUBLIC BFLB_USE_ROM_DRIVER)
+    target_sources(soc PRIVATE
+        src/bl616_romapi_e907.c
+        src/bl616_romapi_patch.c
+    )
+else()
     target_sources(soc PRIVATE
         src/bl616_glb_gpio.c
         src/bl616_glb.c
@@ -32,8 +32,9 @@ add_library(soc STATIC
         src/bl616_l1c.c
         src/bl616_pds.c
         src/bl616_aon.c
-    )
-# endif()
+        )
+
+endif()
 
 target_sources(soc PRIVATE
     src/bl616_mfg_efuse.c
@@ -41,6 +42,11 @@ target_sources(soc PRIVATE
     src/bl616_mfg_media.c
 )
 
+target_sources(soc PRIVATE
+    # src/bl616_romapi_e907.c
+    # src/bl616_romapi_patch.c
+    # src/bl616_romdriver_e907.c
+)
 target_include_directories(soc PUBLIC
     include
     include/hardware

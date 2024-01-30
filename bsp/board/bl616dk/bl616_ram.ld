@@ -189,6 +189,7 @@ SECTIONS
     {
         . = ALIGN(4);
         __bss_start__ = .;
+        __bss_start = .;
 
         *(.bss*)
         *(.sbss*)
@@ -196,6 +197,7 @@ SECTIONS
 
         . = ALIGN(4);
         __bss_end__ = .;
+        __bss_end = .;
     } > ram_memory
 
     .noinit_data (NOLOAD) :
@@ -263,7 +265,7 @@ SECTIONS
 
     __psram_limit = ORIGIN(psram) + LENGTH(psram);
     ASSERT(__psram_limit - __psram_heap_base >= psram_min_size, "psram heap region overflow")
- 
+
     .wifibss (NOLOAD) :
     {
       PROVIDE( __wifi_bss_start = ADDR(.wifibss) );
@@ -288,6 +290,7 @@ SECTIONS
     PROVIDE( _heap_wifi_start = . );
     PROVIDE( _heap_wifi_size = ORIGIN(ram_wifi) + LENGTH(ram_wifi) - _heap_wifi_start );
     PROVIDE(__LD_CONFIG_EM_SEL = __EM_SIZE);
+    _end = .;
 
 }
 
