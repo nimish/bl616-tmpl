@@ -1,6 +1,6 @@
 [param]
 interface_type = "Uart"
-comport_uart = "/dev/tty.usbmodem211201"
+comport_uart = ""
 chip = "BL616/618"
 chip_name = "bl616"
 chip_type = "bl616"
