@@ -3,7 +3,8 @@ add_library(easyflash4 STATIC
     src/ef_env.c
     src/ef_env_legacy_wl.c
     src/ef_env_legacy.c
-    src/ef_port.c src/ef_utils.c
+    src/ef_port.c
+    src/ef_utils.c
     src/easyflash_cli.c
 )
 

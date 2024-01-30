@@ -109,8 +109,7 @@ void mfg_flash_write_bz_poweroffset(void)
     mfg_flash_program();
 }
 
-int mfg_flash_read_bz_poweroffset(int8_t pwrOffset[5], uint8_t reload)
-{
-    mfg_flash_read();
-    return 0;
+int mfg_flash_read_bz_poweroffset(int8_t pwrOffset[20], uint8_t reload) {
+  mfg_flash_read();
+  return 0;
 }

@@ -1,17 +1,17 @@
 set(CMAKE_SYSTEM_NAME Generic-ELF)
-set(CMAKE_SYSTEM_PROCESSOR "rv32imafc_xtheade")
+set(CMAKE_SYSTEM_PROCESSOR "rv32imafc")
 set(CMAKE_COLOR_DIAGNOSTICS ON)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(CMAKE_CROSSCOMPILING TRUE)
 
-set(CMAKE_C_STANDARD 17)
+set(CMAKE_C_STANDARD 23)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
 set(CROSS_COMPILE "riscv64-unknown-elf-")
-set(RISCV_XUANTIE_PATH /opt/homebrew/bin )#/Users/nimish/Projects/xuantie-gnu-toolchain/opt/riscv-xuantie)
+set(RISCV_XUANTIE_PATH /opt/homebrew/bin )
 
 set(CMAKE_SYSROOT ${RISCV_XUANTIE_PATH}/riscv32-unknown-elf)
 set(CMAKE_FIND_ROOT_PATH ${RISCV_XUANTIE_PATH})
@@ -29,7 +29,12 @@ SET(MARCH "rv32imafc_zifencei_xtheadcmo_xtheadba_xtheadbb_xtheadbs_xtheadmac_xth
 # SET(MCPU "e907")
 SET(MABI "ilp32f")
 
-add_compile_definitions(XTHEAD_PREFIX="th.")
+
+set(CMAKE_LINK_LIBRARY_USING_WHOLE_ARCHIVE_SUPPORTED True)
+set(CMAKE_LINK_LIBRARY_USING_WHOLE_ARCHIVE
+"-Wl,--whole-archive" "<LINK_ITEM>" "-Wl,--no-whole-archive"
+)
+
 add_compile_options(
     -march=${MARCH}
     -mabi=${MABI}
@@ -37,18 +42,19 @@ add_compile_options(
     -Wall
     -ffunction-sections
     -fdata-sections
-
-    # -mtune=${MCPU}
-
+    -DXTHEAD_PREFIX="th."
 )
+
 add_link_options(
     -march=${MARCH}
     -mabi=${MABI}
     -Xlinker -Map=${CMAKE_PROJECT_NAME}.map
     -Wl,--print-memory-usage
-    # -mtune=${MCPU}
-)
-set(CMAKE_LINK_LIBRARY_USING_WHOLE_ARCHIVE_SUPPORTED True)
-set(CMAKE_LINK_LIBRARY_USING_WHOLE_ARCHIVE
-"-Wl,--whole-archive" "<LINK_ITEM>" "-Wl,--no-whole-archive"
+    -Wl,--cref
+    -Wl,--gc-sections
+    -nostartfiles
+    -fms-extensions
+    -ffunction-sections
+    -fdata-sections
+    --specs=nano.specs
 )

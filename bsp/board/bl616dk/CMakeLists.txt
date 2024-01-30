@@ -15,14 +15,7 @@ PUBLIC
 )
 
 target_link_options(bl616dk PUBLIC
--T${CMAKE_CURRENT_SOURCE_DIR}/bl616_ram.ld
--Wl,--cref
--Wl,--gc-sections
--nostartfiles
--fms-extensions
--ffunction-sections
--fdata-sections
---specs=nano.specs
--ufw_header
+    -T${CMAKE_CURRENT_SOURCE_DIR}/bl616_ram.ld
+    -ufw_header
 )
 # set_property(TARGET bl616dk PROPERTY INTERFACE_LINK_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/bl616_flash.ld)

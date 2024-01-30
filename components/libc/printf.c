@@ -140,7 +140,7 @@ void bflb_dump(uint8_t *data, uint32_t len)
 }
 
 void bflb_regdump(volatile uint32_t *addr) {
-  printf("%p[31:0]=%08x\r\n", addr, *addr);
+  printf("%p[31:0]=%08lx\r\n", addr, *addr);
 }
 
 #ifdef CONFIG_CONSOLE_WO

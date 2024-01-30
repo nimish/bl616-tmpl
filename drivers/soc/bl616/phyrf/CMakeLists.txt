@@ -2,6 +2,8 @@ add_library(phyrf STATIC IMPORTED GLOBAL)
 set_target_properties(phyrf PROPERTIES
     IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/lib/libphyrf.a
     INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/inc
+    INTERFACE_COMPILE_DEFINITIONS WL_BL616=1
+    INTERFACE_LINK_LIBRARIES "$<LINK_LIBRARY:WHOLE_ARCHIVE,phyrf>"
 )
-
-target_link_libraries(phyrf INTERFACE "$<LINK_LIBRARY:WHOLE_ARCHIVE,phyrf>")
+# target_compile_definitions(phyrf INTERFACE WL_BL616=1)
+# target_link_libraries(phyrf INTERFACE "$<LINK_LIBRARY:WHOLE_ARCHIVE,phyrf>")

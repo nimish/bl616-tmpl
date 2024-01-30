@@ -1,1 +1,3 @@
-sdk_add_subdirectory_ifdef(CONFIG_LVGL lvgl)
+if (CONFIG_LVGL)
+    add_subdirectory(lvgl)
+endif()

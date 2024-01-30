@@ -1,5 +1,6 @@
-#include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <string.h>
 
 #include "usbd_core.h"
@@ -141,27 +142,25 @@ void usbd_event_handler(uint8_t event)
     }
 }
 
-void usbd_cdc_acm_bulk_out(uint8_t ep, uint32_t nbytes)
-{
-    USB_LOG_RAW("actual out len:%d\r\n", nbytes);
-    // for (int i = 0; i < 100; i++) {
-    //     printf("%02x ", read_buffer[i]);
-    // }
-    // printf("\r\n");
-    /* setup next out ep read transfer */
-    usbd_ep_start_read(CDC_OUT_EP, read_buffer, 2048);
+void usbd_cdc_acm_bulk_out(uint8_t ep, uint32_t nbytes) {
+  USB_LOG_RAW("actual out len:%lu\r\n", nbytes);
+  // for (int i = 0; i < 100; i++) {
+  //     printf("%02x ", read_buffer[i]);
+  // }
+  // printf("\r\n");
+  /* setup next out ep read transfer */
+  usbd_ep_start_read(CDC_OUT_EP, read_buffer, 2048);
 }
 
-void usbd_cdc_acm_bulk_in(uint8_t ep, uint32_t nbytes)
-{
-    USB_LOG_RAW("actual in len:%d\r\n", nbytes);
+void usbd_cdc_acm_bulk_in(uint8_t ep, uint32_t nbytes) {
+  USB_LOG_RAW("actual in len:%lu\r\n", nbytes);
 
-    if ((nbytes % CDC_MAX_MPS) == 0 && nbytes) {
-        /* send zlp */
-        usbd_ep_start_write(CDC_IN_EP, NULL, 0);
-    } else {
-        ep_tx_busy_flag = false;
-    }
+  if ((nbytes % CDC_MAX_MPS) == 0 && nbytes) {
+    /* send zlp */
+    usbd_ep_start_write(CDC_IN_EP, NULL, 0);
+  } else {
+    ep_tx_busy_flag = false;
+  }
 }
 
 /*!< endpoint call back */
@@ -214,13 +213,11 @@ void cdc_acm_data_send_with_dtr_test(void)
     }
 }
 
-
-void cdc_acm_data_send_with_dtr(const uint8_t *data, uint32_t data_len )
-{
-    if (dtr_enable) {
-        ep_tx_busy_flag = true;
-        usbd_ep_start_write(CDC_IN_EP, data, data_len);
-        while (ep_tx_busy_flag) {
-        }
+void cdc_acm_data_send_with_dtr(const uint8_t *data, size_t data_len) {
+  if (dtr_enable) {
+    ep_tx_busy_flag = true;
+    usbd_ep_start_write(CDC_IN_EP, data, data_len);
+    while (ep_tx_busy_flag) {
     }
+  }
 }

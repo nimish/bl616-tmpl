@@ -1,3 +1,6 @@
+#include <stddef.h>
+#include <string.h>
+
 #include "rfparam_adapter.h"
 #include "wl_api.h"
 
@@ -28,47 +31,45 @@ BFLOG_DEFINE_TAG(RFPARAM, DBG_TAG, true);
 static struct wl_cfg_t *g_rfparam_cfg = NULL;
 static uint32_t g_tlv_base_addr;
 
-void rfparam_array_printf(char* str, void * buf, uint32_t buf_len, int type)
-{
-    uint32_t i;
-    uint8_t *a=NULL;
-    int8_t *b=NULL;
-    uint16_t *c=NULL;
-    int16_t *d=NULL;
+void rfparam_array_printf(char *str, void *buf, size_t buf_len, int type) {
+  uint32_t i;
+  uint8_t *a = NULL;
+  int8_t *b = NULL;
+  uint16_t *c = NULL;
+  int16_t *d = NULL;
 
-    rfparam_printf("%s[%d]: ", str, buf_len);
+  rfparam_printf("%s[%zu]: ", str, buf_len);
 
-    switch (type) {
-    case TYPE_UINT8:
-        a = (uint8_t *)buf;
-        for (i = 0; i < buf_len; i++) {
-            printf("%d,", (int)a[i]);
-        }
-        break;
-    case TYPE_INT8:
-        b = (int8_t *)buf;
-        for (i = 0; i < buf_len; i++) {
-            printf("%d,", (int)b[i]);
-        }
-        break;
-    case TYPE_UINT16:
-        c = (uint16_t *)buf;
-        for (i = 0; i < buf_len; i++) {
-            printf("%d,", (int)c[i]);
-        }
-        break;
-    case TYPE_INT16:
-        d = (int16_t *)buf;
-        for (i = 0; i < buf_len; i++) {
-            printf("%d,", (int)d[i]);
-        }
-        break;
-    default:
-        break;
+  switch (type) {
+  case TYPE_UINT8:
+    a = (uint8_t *)buf;
+    for (i = 0; i < buf_len; i++) {
+      printf("%d,", (int)a[i]);
     }
-    printf("\r\n");
+    break;
+  case TYPE_INT8:
+    b = (int8_t *)buf;
+    for (i = 0; i < buf_len; i++) {
+      printf("%d,", (int)b[i]);
+    }
+    break;
+  case TYPE_UINT16:
+    c = (uint16_t *)buf;
+    for (i = 0; i < buf_len; i++) {
+      printf("%d,", (int)c[i]);
+    }
+    break;
+  case TYPE_INT16:
+    d = (int16_t *)buf;
+    for (i = 0; i < buf_len; i++) {
+      printf("%d,", (int)d[i]);
+    }
+    break;
+  default:
+    break;
+  }
+  printf("\r\n");
 }
-
 
 /****************************************************************************//**
  * @brief  get wifi power offset by mode option

@@ -28,7 +28,7 @@ int8_t mfg_efuse_read_macaddr(uint8_t mac[6], uint8_t reload);
 uint8_t mfg_efuse_is_bz_poweroffset_slot_empty(uint8_t reload);
 int mfg_efuse_write_bz_poweroffset_pre(int8_t pwr_offset[5], uint8_t program);
 void mfg_efuse_write_bz_poweroffset(void);
-int mfg_efuse_read_bz_poweroffset(int8_t pwr_offset[20], uint8_t reload);
+int mfg_efuse_read_bz_poweroffset(int8_t pwr_offset[5], uint8_t reload);
 void mfg_efuse_program(uint32_t addr,uint32_t *pword,uint32_t countInword,uint32_t program);
 void mfg_efuse_read(uint32_t addr,uint32_t *pword,uint32_t countInword,uint8_t reload);
 

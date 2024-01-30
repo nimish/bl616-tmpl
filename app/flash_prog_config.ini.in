@@ -7,6 +7,6 @@ skip_mode = 0x0, 0x0
 boot2_isp_mode = 0
 
 [FW]
-filedir = ./build/app/app.bin
+filedir = @BIN_FILE@
 address = 0x000000
 

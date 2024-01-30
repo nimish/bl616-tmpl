@@ -1,34 +1,43 @@
 cmake_minimum_required(VERSION 3.28)
 include(CMakePrintHelpers)
+include(CMakeDependentOption)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 project(bl616_tmpl C ASM)
 
-set(CMAKE_C_STANDARD 23)
-set(CMAKE_C_STANDARD_REQUIRED ON)
-set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+
+option(CONFIG_FS "Enable FS" ON)
+cmake_dependent_option(CONFIG_FATFS "Enable FATFS" ON "CONFIG_FS" OFF)
+cmake_dependent_option(CONFIG_LITTLEFS "Enable LITTLEFS" ON "CONFIG_FS" OFF)
+cmake_dependent_option(CONFIG_ROMFS "Enable ROMFS" ON "CONFIG_FS" OFF)
+
+option(CONFIG_XZ "Enable LZMA support (xz)" ON)
+option(CONFIG_LVGL "Enable LVGL graphics lib" ON)
+option(CONFIG_MBEDTLS "Enable mbedTLS" OFF)
+option(CONFIG_LWIP "Enable LWIP networking support" OFF)
+
+option(CONFIG_USB_DEVICE "Enable USB device" ON)
+cmake_dependent_option(CONFIG_USB_HID "Enable USB HID" OFF "CONFIG_USB_DEVICE" OFF)
+cmake_dependent_option(CONFIG_USB_CDC "Enable USB CDC" ON "CONFIG_USB_DEVICE" OFF)
+cmake_dependent_option(CONFIG_USB_MSC "Enable USB MSC" OFF "CONFIG_USB_DEVICE" OFF)
+cmake_dependent_option(CONFIG_USB_AUDIO "Enable USB Audio" OFF "CONFIG_USB_DEVICE" OFF)
+cmake_dependent_option(CONFIG_USB_VIDEO "Enable USB Video" OFF "CONFIG_USB_DEVICE" OFF)
+
+option(CONFIG_USB_HOST "Enable USB host" OFF)
+cmake_dependent_option(CONFIG_USB_HID_HOST "Enable USB HID host" ON "CONFIG_USB_HOST" OFF)
+cmake_dependent_option(CONFIG_USB_CDC_ACM_HOST "Enable USB CDC host" ON "CONFIG_USB_HOST" OFF)
+cmake_dependent_option(CONFIG_USB_MSC_HOST "Enable USB MSC host" ON "CONFIG_USB_HOST" OFF)
+cmake_dependent_option(CONFIG_USB_AUDIO_HOST "Enable USB Audio host" ON "CONFIG_USB_HOST" OFF)
+cmake_dependent_option(CONFIG_USB_VIDEO_HOST "Enable USB Video host" ON "CONFIG_USB_HOST" OFF)
+cmake_dependent_option(CONFIG_USB_HUB_HOST "Enable USB hub support" ON "CONFIG_USB_HOST" OFF)
+cmake_dependent_option(CONFIG_USB_EHCI "Enable USB EHCI support" ON "CONFIG_USB_HOST" OFF)
 
 set(CHIP_NAME "BL616")
 set(CHIP bl616)
 set(BOARD bl616dk)
 set(BL_SDK_BASE ${CMAKE_CURRENT_SOURCE_DIR})
 
-
-set(BIN_FILE ${CMAKE_CURRENT_BINARY_DIR}/app/app.bin)
-set(ASM_FILE ${CMAKE_CURRENT_BINARY_DIR}/app/app.asm)
-
-set(CONFIG_CHERRYUSB_DEVICE_CDC ON)
-
-include_directories("app/")
-add_subdirectory(app)
-
-add_subdirectory(components)
-add_subdirectory(drivers)
-add_subdirectory(bsp)
-
-set(BL_FW_POST_PROC ${CMAKE_CURRENT_SOURCE_DIR}/tools/bflb_tools/bflb_fw_post_proc/bflb_fw_post_proc-macos)
-
-set(MAP_FILE ${CMAKE_PROJECT_NAME}.map)
 
 set( BL_FLASH_PROGRAM ${BL_SDK_BASE}/tools/bflb_tools/bouffalo_flash_cube/BLFlashCommand-macos)
 set( PROTOCOL uart)
@@ -47,13 +56,18 @@ cmake_print_variables(FLASH_ARGS)
 
 add_custom_target(
         flash
-        COMMAND ${BL_FW_POST_PROC}
-                --chipname=${CHIP}
-                --imgfile=$<TARGET_FILE_DIR:app>/$<TARGET_FILE_BASE_NAME:app>.bin
-                --brdcfgdir=${CMAKE_CURRENT_SOURCE_DIR}/bsp/board/${BOARD}/config
         COMMAND ${BL_FLASH_PROGRAM} ${FLASH_ARGS}
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/app
         COMMENT "Flashing ${BIN_FILE} to ${COMX}"
         COMMAND_EXPAND_LISTS
         USES_TERMINAL
 )
+
+# hack for cherryusb usb_config.h
+include_directories(app)
+add_subdirectory(app)
+
+add_subdirectory(components)
+add_subdirectory(drivers)
+add_subdirectory(bsp)
+

@@ -24,7 +24,7 @@
 #ifndef _LOG_H
 #define _LOG_H
 
-#include <stdint.h>
+#include <stdio.h>
 #include <string.h>
 
 #ifndef DBG_TAG
